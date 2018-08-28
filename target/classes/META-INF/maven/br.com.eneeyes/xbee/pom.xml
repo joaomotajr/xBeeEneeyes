@@ -1,0 +1,87 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+  	<groupId>br.com.eneeyes</groupId>
+  	<artifactId>xbee</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+  	
+  	<dependencies>
+	<!-- https://mvnrepository.com/artifact/com.digi.xbee/xbee-java-library -->
+		<dependency>
+			<groupId>com.digi.xbee</groupId>
+		    <artifactId>xbee-java-library</artifactId>
+		    <version>1.2.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.rxtx/rxtx -->
+		<dependency>
+		    <groupId>org.rxtx</groupId>
+		    <artifactId>rxtx</artifactId>
+		    <version>2.1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+		<dependency>
+		    <groupId>log4j</groupId>
+		    <artifactId>log4j</artifactId>
+		    <version>1.2.17</version>
+		</dependency>						
+ 	</dependencies>
+	<build>
+	<plugins>
+		
+		<plugin>
+			<artifactId>maven-assembly-plugin</artifactId>
+			<version>2.4</version>
+			<configuration>
+				<archive>
+					<manifest>
+						<mainClass>src.main.java.xbee.MainApp</mainClass>
+					</manifest>
+				</archive>
+				<descriptorRefs>
+					<descriptorRef>jar-with-dependencies</descriptorRef>
+				</descriptorRefs>
+			</configuration>
+			<executions>
+				<execution>
+					<id>make-assembly</id>
+					<phase>package</phase>
+					<goals>
+						<goal>single</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+		<plugin>
+			<groupId>org.skife.maven</groupId>
+			<artifactId>really-executable-jar-maven-plugin</artifactId>
+			<version>1.4.1</version>
+			<configuration>
+				<!-- value of flags will be interpolated into the java invocation -->
+				<!-- as "java $flags -jar ..." -->
+				<flags></flags>
+
+				<!-- (optional) name for binary executable, if not set will just -->
+				<!-- make the regular jar artifact executable -->
+				<programFile>xbee-eneeyes</programFile>
+			</configuration>
+
+			<executions>
+				<execution>
+					<phase>package</phase>
+					<goals>
+						<goal>really-executable-jar</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+	</plugins>
+</build>
+
+   
+	
+	  
+</project>
