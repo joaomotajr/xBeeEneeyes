@@ -45,12 +45,15 @@ public class MyDataReceiveListener implements IDataReceiveListener {
 			MainApp.logger.error("Erro de configuração de Sensores, verifique ::" + value);
 			return;
 		}
-		
+				
 		value = messageReceived.split(";");
+		
+		if(!value[0].contentEquals("EGAS"))
+			return;
 
 		try {
 			String broker = "177.144.134.145:8090";
-			new SendRest(broker, value[1], value[2]);
+			new SendRest(broker, value[2], value[3]);
 			
 		} catch (Exception e) {
 			MainApp.logger.error(e);
@@ -58,4 +61,5 @@ public class MyDataReceiveListener implements IDataReceiveListener {
 		
 		MainApp.logger.info(String.format("From %s >> %s ", macAddress, messageReceived));
 	}
+
 }

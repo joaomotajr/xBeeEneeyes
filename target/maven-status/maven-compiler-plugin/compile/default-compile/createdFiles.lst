@@ -1,2 +1,3 @@
+service\SendRest.class
 xbee\MainApp.class
 xbee\MyDataReceiveListener.class
