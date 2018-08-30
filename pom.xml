@@ -38,7 +38,7 @@
 			<configuration>
 				<archive>
 					<manifest>
-						<mainClass>src.main.java.xbee.MainApp</mainClass>
+						<mainClass>xbee.MainApp</mainClass>
 					</manifest>
 				</archive>
 				<descriptorRefs>

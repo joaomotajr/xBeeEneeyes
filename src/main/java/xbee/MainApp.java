@@ -32,13 +32,12 @@ import service.SendRest;
  * 
  * <p>For a complete description on the example, refer to the 'ReadMe.txt' file
  * included in the root directory.</p>
+ * E-GAS - API :: 177.144.134.145:8090
  */
 public class MainApp {
 	
 	/* Constants */
-	
-	// TODO Replace with the serial port where your receiver module is connected.
-	private static final String PORT = "COM3";
+	 
 	// TODO Replace with the baud rate of you receiver module.
 	private static final int BAUD_RATE = 9600;
 	
@@ -53,16 +52,23 @@ public class MainApp {
 		BasicConfigurator.configure();
 		 
 		System.out.println(" +-----------------------------------------+");
-		System.out.println(" |  XBee Java Library Receive Data Sample  |");
+		System.out.println(" |  XBee ENEEYES => To EGas - Direct       |");
 		System.out.println(" +-----------------------------------------+\n");
 		
+		if (args.length < 2 || args[0].isEmpty() ) {
+			throw new IllegalArgumentException("Você deve especificar: IP:Porta do Broker e Porta COM");
+		}		
+		
 		logger.info("Initialing Integrator XBee -> E-Gas");
+		String host = args[0];
+		String comPort = args[1];
 		
-		XBeeDevice myDevice = new XBeeDevice(PORT, BAUD_RATE);
+		logger.info("E-Gas API IP :: " + host + "|| Virtual Usb Port :: " + comPort);
 		
-		try {		
+		XBeeDevice myDevice = new XBeeDevice(comPort, BAUD_RATE);
+		
+		try {
 			
-			String host = "177.144.134.145:8090";
 			SendRest sendRest = new SendRest();
 
 			if (sendRest.TestRest(host)) {			

@@ -52,8 +52,7 @@ public class MyDataReceiveListener implements IDataReceiveListener {
 			return;
 
 		try {
-			String broker = "177.144.134.145:8090";
-			new SendRest(broker, value[2], value[3]);
+			new SendRest(host, value[2], value[3]);
 			
 		} catch (Exception e) {
 			MainApp.logger.error(e);
