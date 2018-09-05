@@ -1,6 +1,5 @@
 package xbee;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -49,21 +48,23 @@ public class MainApp {
 	 * @param args Command line arguments.
 	 */
 	public static void main(String[] args) {
-		BasicConfigurator.configure();
-		 
+						
+		logger.info("Initialing Integrator XBee -> E-Gas");
+		
 		System.out.println(" +-----------------------------------------+");
 		System.out.println(" |  XBee ENEEYES => To EGas - Direct       |");
 		System.out.println(" +-----------------------------------------+\n");
 		
 		if (args.length < 2 || args[0].isEmpty() ) {
-			throw new IllegalArgumentException("Você deve especificar: IP:Porta do Broker e Porta COM");
+			logger.error("Você deve especificar: IP:Porta do Broker e Porta COM");		
+			System.exit(1);
 		}		
 		
-		logger.info("Initialing Integrator XBee -> E-Gas");
+		logger.info("Checking Parameters...");
 		String host = args[0];
 		String comPort = args[1];
 		
-		logger.info("E-Gas API IP :: " + host + "|| Virtual Usb Port :: " + comPort);
+		logger.info("E-Gas API IP :: " + host + " || Virtual Usb Port :: " + comPort);
 		
 		XBeeDevice myDevice = new XBeeDevice(comPort, BAUD_RATE);
 		
@@ -83,7 +84,7 @@ public class MainApp {
 			
 		} catch (XBeeException e) {
 			
-			logger.error("Sorry, something wrong!", e);
+			logger.error("Ops! Há Algo errado, verifique\n", e);
 			System.exit(1);
 		}
 	}
