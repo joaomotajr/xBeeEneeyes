@@ -49,14 +49,14 @@ public class MainApp {
 	 */
 	public static void main(String[] args) {
 						
-		logger.info("Initialing Integrator XBee -> E-Gas");
+		logger.info("Initialing Integrator XBee -> E-Gas (API)");
 		
 		System.out.println(" +-----------------------------------------+");
 		System.out.println(" |  XBee ENEEYES => To EGas - Direct       |");
 		System.out.println(" +-----------------------------------------+\n");
 		
 		if (args.length < 2 || args[0].isEmpty() ) {
-			logger.error("Você deve especificar: IP:Porta do Broker e Porta COM");		
+			logger.error("Você deve especificar: IP:Porta do EGAS Services e Porta COM do xBee");		
 			System.exit(1);
 		}		
 		
@@ -64,22 +64,28 @@ public class MainApp {
 		String host = args[0];
 		String comPort = args[1];
 		
-		logger.info("E-Gas API IP :: " + host + " || Virtual Usb Port :: " + comPort);
-		
-		XBeeDevice myDevice = new XBeeDevice(comPort, BAUD_RATE);
-		
+		logger.info("E-Gas API IP :: " + host + " || Virtual Usb Port / TX :: " + comPort + "/" + BAUD_RATE);
+				
 		try {
-			
+		
+			logger.info("E-Gas API IP :: " + host + " - Iniciando Comunicação...");
 			SendRest sendRest = new SendRest();
 
-			if (sendRest.TestRest(host)) {			
+			if (sendRest.TestRest(host)) {
+				
+				logger.info("E-Gas API IP :: " + host + " Conectado.");				
+				logger.info("Checando xBee :: Virtual Usb Port / TX :: " + comPort + "/" + BAUD_RATE);
+				
+				XBeeDevice myDevice = new XBeeDevice(comPort, BAUD_RATE);
 				myDevice.open();
+				
+				logger.info("XBee :: Virtual Usb Port / TX :: " + comPort + "/" + BAUD_RATE + " OK");
 				
 				MyDataReceiveListener dataReceiveListener = new MyDataReceiveListener();
 				dataReceiveListener.setHost(host);
 				myDevice.addDataListener(dataReceiveListener);
 				
-				System.out.println("\n>> Waiting for data...");
+				System.out.println("\n>> Esperando por Dados dos Routers...");
 			}
 			
 		} catch (XBeeException e) {

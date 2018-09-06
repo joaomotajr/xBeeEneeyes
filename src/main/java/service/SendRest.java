@@ -70,13 +70,13 @@ public class SendRest   {
 	
 		  } catch (MalformedURLException e) {
 	
-			  MainApp.logger.error("URL Malformed or wrong parameters value .... \n");
-			  
+			  MainApp.logger.error("URL Malformed or wrong parameters value ....");
+			  return false;			  
 	
 		  } catch (IOException e) {
 	
-			  MainApp.logger.error("Failed Test. [" + e.getMessage() + "] /n" );
-			  
+			  MainApp.logger.error("Failed Test. [" + e.getMessage() + "]" );
+			  return false;			  
 		 }
 		
 		return true;
