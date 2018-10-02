@@ -55,16 +55,22 @@ public class MainApp {
 		System.out.println(" |  XBee ENEEYES => To EGas - Direct       |");
 		System.out.println(" +-----------------------------------------+\n");
 		
-		if (args.length < 2 || args[0].isEmpty() ) {
-			logger.error("Você deve especificar: IP:Porta do EGAS Services e Porta COM do xBee");		
+		if (args.length != 3) {
+			logger.error("Você deve especificar: Integração[none, mqtt],  IP:Porta do Broker e Porta COM do xBee");			
 			System.exit(1);
 		}		
 		
 		logger.info("Checking Parameters...");
-		String host = args[0];
-		String comPort = args[1];
-		
-		logger.info("E-Gas API IP :: " + host + " || Virtual Usb Port / TX :: " + comPort + "/" + BAUD_RATE);
+		String sinc = args[0].toLowerCase();
+		String host = args[1];
+		String comPort = args[2];
+				
+		if(sinc.equals("none"))		
+			logger.info("Integração com E-Gas Desabilitada..");
+		else if(sinc.equals("rest"))
+			logger.info("E-Gas API IP :: " + host + " || Virtual Usb Port / TX :: " + comPort + "/" + BAUD_RATE);		
+		else 
+			logger.info("Parâmetro Integração Inválido");
 				
 		try {
 		
